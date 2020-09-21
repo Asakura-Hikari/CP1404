@@ -4,7 +4,15 @@ import shutil
 
 def main():
     os.chdir("FilesToSort")
+    files = os.listdir('.')
+    dir_list = []
+    for file in files:
+        suffix = file.split('.')
+        dir_list.append(suffix[1])
+
     try:
+        for dir in dir_list:
+            os.mkdir(dir)
         os.mkdir('doc')
         os.mkdir('docx')
         os.mkdir('xls')
@@ -15,10 +23,12 @@ def main():
         os.mkdir('txt')
     except FileExistsError:
         pass
-    for directory_name, subdirectories, filenames in os.walk('.'):
-        for filename in filenames:
-            list_for_name = get_name_list(filename)
+    filenames = os.listdir('.')
+    print(filenames)
 
+    for filename in filenames:
+        if os.path.isfile(filename):
+            list_for_name = get_name_list(filename)
             if list_for_name[1] == 'doc':
                 shutil.move(filename, 'doc/' + filename)
 
