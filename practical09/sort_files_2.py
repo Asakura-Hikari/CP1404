@@ -9,12 +9,15 @@ def main():
     os.chdir(PATH)
     target = os.getcwd()
     for dir in dirnames:
-        os.chdir(dir)
-        for file in os.listdir(os.getcwd()):
-            shutil.move(file, target)
-        os.chdir("..")
+        if os.path.isdir(dir):
+            os.chdir(dir)
+            for file in os.listdir(os.getcwd()):
+                print("moving {} to {}".format(file, target))
+                shutil.move(file, target)
+            os.chdir("..")
     for dir in dirnames:
-        os.rmdir(dir)
+        if os.path.isdir(dir):
+            os.rmdir(dir)
 
 
 main()

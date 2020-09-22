@@ -10,7 +10,8 @@ def main():
     dir_list = []
     for file in files:
         suffix = get_name_list(file)
-        dir_list.append(suffix[1])
+        if len(suffix) == 2:
+            dir_list.append(suffix[1])
     for dir in dir_list:
         try:
             os.mkdir(dir)
@@ -22,7 +23,7 @@ def main():
         os.chdir("..")
         for file in files:
             file_type = get_name_list(file)
-            if file_type[1] == dir:
+            if os.path.isfile(file) and file_type[1] == dir:
                 print("moving {} to {}".format(file, dir))
                 shutil.move(file, target)
                 files.pop(files.index(file))
