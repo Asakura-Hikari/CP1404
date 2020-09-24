@@ -17,7 +17,6 @@ def main():
             os.mkdir(dir)
         except FileExistsError:
             pass
-    for dir in dir_list:
         os.chdir(dir)
         target = os.getcwd()
         os.chdir("..")
